@@ -1,0 +1,223 @@
+/* ===========================
+   Cafe Menu v1.0
+=========================== */
+
+:root{
+
+    --max-width:430px;
+
+    --bg:#f5f3ef;
+
+    --header:#ffffff;
+
+    --radius:18px;
+
+    --shadow:0 3px 15px rgba(0,0,0,.08);
+
+    --logo-width:170px;
+
+    --lang-size:62px;
+
+    --menu-size:72px;
+
+    --padding:16px;
+
+    --gap:12px;
+
+    --transition:.22s;
+
+}
+
+/* =========================== */
+
+*{
+
+    margin:0;
+
+    padding:0;
+
+    box-sizing:border-box;
+
+    -webkit-user-select:none;
+
+    user-select:none;
+
+    -webkit-tap-highlight-color:transparent;
+
+}
+
+html{
+
+    background:var(--bg);
+
+}
+
+body{
+
+    background:var(--bg);
+
+    display:flex;
+
+    justify-content:center;
+
+    font-family:sans-serif;
+
+}
+
+/* =========================== */
+
+.app{
+
+    width:100%;
+
+    max-width:var(--max-width);
+
+    min-height:100vh;
+
+    background:var(--bg);
+
+}
+
+/* =========================== */
+/* Header */
+/* =========================== */
+
+.header{
+
+    position:sticky;
+
+    top:0;
+
+    z-index:999;
+
+    background:var(--header);
+
+    padding:
+
+        calc(env(safe-area-inset-top) + 12px)
+
+        var(--padding)
+
+        14px;
+
+    box-shadow:var(--shadow);
+
+}
+
+/* =========================== */
+
+.topRow{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:16px;
+
+}
+
+#logo{
+
+    width:var(--logo-width);
+
+    pointer-events:none;
+
+    -webkit-user-drag:none;
+
+}
+
+.languageArea{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.langBtn{
+
+    width:var(--lang-size);
+
+    cursor:pointer;
+
+    transition:transform var(--transition);
+
+    -webkit-user-drag:none;
+
+}
+
+.langBtn:active{
+
+    transform:scale(.92);
+
+}
+
+/* =========================== */
+
+.categoryRow{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.menuBtn{
+
+    width:var(--menu-size);
+
+    cursor:pointer;
+
+    transition:transform var(--transition);
+
+    -webkit-user-drag:none;
+
+}
+
+.menuBtn:active{
+
+    transform:scale(.92);
+
+}
+
+/* =========================== */
+/* Content */
+/* =========================== */
+
+.content{
+
+    padding:18px 16px 40px;
+
+}
+
+#menuImage{
+
+    width:100%;
+
+    display:block;
+
+    border-radius:var(--radius);
+
+    box-shadow:var(--shadow);
+
+    transition:opacity .25s;
+
+    opacity:1;
+
+    -webkit-user-drag:none;
+
+    pointer-events:none;
+
+}
+
+/* Fade */
+
+.fade{
+
+    opacity:0;
+
+}
