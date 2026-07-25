@@ -2,8 +2,19 @@
 // Cafe Menu v1.0
 // ==========================
 
-// 현재 상태
-let currentLanguage = "cn";
+// ==========================
+// QR 주소에서 시작 언어 확인
+// ?lang=cn → 중국어
+// ?lang=jp → 일본어
+// 그 외 주소 → 중국어
+// ==========================
+
+const urlParams = new URLSearchParams(window.location.search);
+const requestedLanguage = urlParams.get("lang");
+
+let currentLanguage =
+    requestedLanguage === "jp" ? "jp" : "cn";
+
 let currentCategory = "signature";
 let changing = false;
 
