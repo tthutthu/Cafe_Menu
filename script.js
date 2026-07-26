@@ -33,17 +33,17 @@ const menuImage = document.getElementById("menuImage");
 const MENU = {
 
     cn:{
-        signature:"cn_signature.jpg",
-        espresso:"cn_espresso.jpg",
-        tea:"cn_tea.jpg",
-        beverage:"cn_beverage.jpg"
+        signature:"cn_signature.png",
+        espresso:"cn_espresso.png",
+        tea:"cn_tea.png",
+        beverage:"cn_beverage.png"
     },
 
     jp:{
-        signature:"jp_signature.jpg",
-        espresso:"jp_espresso.jpg",
-        tea:"jp_tea.jpg",
-        beverage:"jp_beverage.jpg"
+        signature:"jp_signature.png",
+        espresso:"jp_espresso.png",
+        tea:"jp_tea.png",
+        beverage:"jp_beverage.png"
     }
 
 };
