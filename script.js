@@ -6,6 +6,7 @@
 // QR 주소에서 시작 언어 확인
 // ?lang=cn → 중국어
 // ?lang=jp → 일본어
+// ?lang=en → 영어
 // 그 외 주소 → 중국어
 // ==========================
 
@@ -13,18 +14,21 @@ const urlParams = new URLSearchParams(window.location.search);
 const requestedLanguage = urlParams.get("lang");
 
 let currentLanguage =
-    requestedLanguage === "jp" ? "jp" : "cn";
+    requestedLanguage === "jp" ? "jp" :
+    requestedLanguage === "en" ? "en" : "cn";
 
 let currentCategory = "signature";
+let lastLoadedCategory = "signature";
 let changing = false;
 
 // 버튼
-const btnCN = document.getElementById("btnCN");
 const btnJP = document.getElementById("btnJP");
+const btnCN = document.getElementById("btnCN");
+const btnEN = document.getElementById("btnEN");
 
 const btnSignature = document.getElementById("btnSignature");
 const btnEspresso = document.getElementById("btnEspresso");
-const btnTea = document.getElementById("btnTea");
+const btnColdBrew = document.getElementById("btnColdBrew");
 const btnBeverage = document.getElementById("btnBeverage");
 
 const menuImage = document.getElementById("menuImage");
@@ -35,15 +39,22 @@ const MENU = {
     cn:{
         signature:"cn_signature.png",
         espresso:"cn_espresso.png",
-        tea:"cn_tea.png",
+        coldbrew:"cn_coldbrew.png",
         beverage:"cn_beverage.png"
     },
 
     jp:{
         signature:"jp_signature.png",
         espresso:"jp_espresso.png",
-        tea:"jp_tea.png",
+        coldbrew:"jp_coldbrew.png",
         beverage:"jp_beverage.png"
+    },
+
+    en:{
+        signature:"en_signature.png",
+        espresso:"en_espresso.png",
+        coldbrew:"en_coldbrew.png",
+        beverage:"en_beverage.png"
     }
 
 };
@@ -67,15 +78,20 @@ function preload(){
 // 버튼 이미지 갱신
 function refreshButtons(){
 
+    btnJP.src =
+        currentLanguage==="jp"
+        ? "images/japan_on.png"
+        : "images/japan.png";
+
     btnCN.src =
         currentLanguage==="cn"
         ? "images/china_on.png"
         : "images/china.png";
 
-    btnJP.src =
-        currentLanguage==="jp"
-        ? "images/japan_on.png"
-        : "images/japan.png";
+    btnEN.src =
+        currentLanguage==="en"
+        ? "images/english_on.png"
+        : "images/english.png";
 
     btnSignature.src =
         currentCategory==="signature"
@@ -87,10 +103,10 @@ function refreshButtons(){
         ? "images/espresso_on.png"
         : "images/espresso.png";
 
-    btnTea.src =
-        currentCategory==="tea"
-        ? "images/tea_on.png"
-        : "images/tea.png";
+    btnColdBrew.src =
+        currentCategory==="coldbrew"
+        ? "images/coldbrew_on.png"
+        : "images/coldbrew.png";
 
     btnBeverage.src =
         currentCategory==="beverage"
@@ -112,17 +128,31 @@ function changeMenu(){
 
     setTimeout(()=>{
 
-        menuImage.src =
-            "images/" +
-            MENU[currentLanguage][currentCategory];
-
         menuImage.onload = ()=>{
 
             menuImage.classList.remove("fade");
 
+            lastLoadedCategory = currentCategory;
             changing = false;
 
         };
+
+        menuImage.onerror = ()=>{
+
+            // Cold Brew images must be added before this category can be displayed.
+            menuImage.onerror = null;
+            currentCategory = lastLoadedCategory;
+            refreshButtons();
+            menuImage.src = "images/" + MENU[currentLanguage][lastLoadedCategory];
+            menuImage.classList.remove("fade");
+            changing = false;
+            alert("콜드브루 메뉴 이미지가 아직 등록되지 않았습니다.");
+
+        };
+
+        menuImage.src =
+            "images/" +
+            MENU[currentLanguage][currentCategory];
 
     },180);
 
@@ -131,7 +161,7 @@ function changeMenu(){
 // 언어 버튼
 btnCN.onclick=()=>{
 
-    if(currentLanguage==="cn") return;
+    if(changing || currentLanguage==="cn") return;
 
     currentLanguage="cn";
 
@@ -141,9 +171,19 @@ btnCN.onclick=()=>{
 
 btnJP.onclick=()=>{
 
-    if(currentLanguage==="jp") return;
+    if(changing || currentLanguage==="jp") return;
 
     currentLanguage="jp";
+
+    changeMenu();
+
+}
+
+btnEN.onclick=()=>{
+
+    if(changing || currentLanguage==="en") return;
+
+    currentLanguage="en";
 
     changeMenu();
 
@@ -152,7 +192,7 @@ btnJP.onclick=()=>{
 // 메뉴 버튼
 btnSignature.onclick=()=>{
 
-    if(currentCategory==="signature") return;
+    if(changing || currentCategory==="signature") return;
 
     currentCategory="signature";
 
@@ -162,7 +202,7 @@ btnSignature.onclick=()=>{
 
 btnEspresso.onclick=()=>{
 
-    if(currentCategory==="espresso") return;
+    if(changing || currentCategory==="espresso") return;
 
     currentCategory="espresso";
 
@@ -170,11 +210,11 @@ btnEspresso.onclick=()=>{
 
 }
 
-btnTea.onclick=()=>{
+btnColdBrew.onclick=()=>{
 
-    if(currentCategory==="tea") return;
+    if(changing || currentCategory==="coldbrew") return;
 
-    currentCategory="tea";
+    currentCategory="coldbrew";
 
     changeMenu();
 
@@ -182,7 +222,7 @@ btnTea.onclick=()=>{
 
 btnBeverage.onclick=()=>{
 
-    if(currentCategory==="beverage") return;
+    if(changing || currentCategory==="beverage") return;
 
     currentCategory="beverage";
 

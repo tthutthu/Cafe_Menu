@@ -120,7 +120,7 @@ body{
 
 #logo{
 
-    width:var(--logo-width);
+    width:min(var(--logo-width), calc(100vw - 186px));
 
     pointer-events:none;
 
@@ -132,13 +132,13 @@ body{
 
     display:flex;
 
-    gap:10px;
+    gap:6px;
 
 }
 
 .langBtn{
 
-    width:var(--lang-size);
+    width:min(var(--lang-size), 13.2vw);
 
     cursor:pointer;
 

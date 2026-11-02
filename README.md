@@ -72,3 +72,6 @@ favicon.ico
 - Mobile First
 - GitHub Pages
 - HTML / CSS / JavaScript
+
+## Cold Brew menu images
+The navigation now uses a Cold Brew category. Add the menu artwork in `images/` with these exact filenames before publishing the Cold Brew menu: `cn_coldbrew.png`, `jp_coldbrew.png`, and `en_coldbrew.png`. Match the existing menu artwork size (1080 × 2120 px) for consistent display.
